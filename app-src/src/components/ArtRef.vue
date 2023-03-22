@@ -11,7 +11,8 @@ function isImgUrl(url) {
 
 async function loadImagesFromSub(sub){
     let url = urlbase + sub + urlend;
-    fetch(url).then(res => res.json()).then(d =>{
+    fetch(url, {mode:'no-cors'}).then(res => res.json()).then(d =>{
+        console.log(d)
         if(!d.data){return}
         d.data.children.forEach(c=>{
             let imgUrl = c.data.url
@@ -22,7 +23,7 @@ async function loadImagesFromSub(sub){
     })
 }
 async function getImages(){
-    loadImagesFromSub('mombod')
+    await loadImagesFromSub('mombod')
 }
 
 onMounted(() => {
@@ -42,12 +43,14 @@ onMounted(() => {
 
 <style scoped>
 .image {
-    max-width: 600px;
+    width: 100%;
+    max-width: 80vw;
     margin: auto;
     padding: 0.5rem 2rem;
 }
 
 .images {
+    max-width: 100%;
     /* width: 100vw;
     padding: 0 2rem;
     margin: auto;
